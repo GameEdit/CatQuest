@@ -1,5 +1,6 @@
 package android.application.catquest.dao;
 
+import android.application.catquest.constant.DBConstant;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -11,11 +12,6 @@ import android.database.sqlite.SQLiteOpenHelper;
  * @author n.yuuki
  */
 public class DBAccessOpenHelper extends SQLiteOpenHelper {
-	// 定数
-	/** データベース名 */
-	private static final String DB_NAME = "CAT_QUEST_DB";
-
-	// 変数
 
 	/**
 	 * コンストラクタ
@@ -23,7 +19,7 @@ public class DBAccessOpenHelper extends SQLiteOpenHelper {
 	 * @param con コンテキスト
 	 */
 	public DBAccessOpenHelper(Context con) {
-		super(con, DB_NAME, null, 1);
+		super(con, DBConstant.DB_NAME, null, 1);
 	}
 
 	/**
