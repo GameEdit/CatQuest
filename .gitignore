@@ -1,2 +1,7 @@
-/tmp
+.classpath
+.project
+project.properties
+/assets
+/bin
+/gen
 ignore_test/
