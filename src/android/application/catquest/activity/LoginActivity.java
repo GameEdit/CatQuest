@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 
 
 /**
@@ -17,15 +18,22 @@ import android.view.View.OnClickListener;
  */
 public class LoginActivity extends Activity {
 
-	private Button button1;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_activity_layout);
 		//ボタンオブオブジェクト取得
-		Button button1 =(Button)findViewById(R.id.button2);
+		Button button =(Button)findViewById(R.id.button2);
+		button.setOnClickListener(new ButtonClickListener());
 
-
+	}
+	
+	class ButtonClickListener implements OnClickListener{
+		public void onClick(View v){
+			EditText input =(EditText)findViewById(R.id.editText1);
+			input.setText("メイジももんじゃ");
+			
+		}
 	}
 
 	@Override
