@@ -19,3 +19,6 @@ local.properties
 .classpath
 .project
 .settings/
+.checkstyle
+ignore_test/
+lint.xml
