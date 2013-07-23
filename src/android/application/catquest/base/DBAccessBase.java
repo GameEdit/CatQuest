@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.application.catquest.constant.DBConstant;
+import android.application.catquest.constant.SQLConstant;
 import android.application.catquest.dao.DBAccessOpenHelper;
 import android.content.Context;
 import android.database.Cursor;
@@ -17,27 +18,35 @@ import android.database.sqlite.SQLiteException;
  * @author n.yuuki
  */
 public class DBAccessBase {
+	/** コンテキスト */
+	private Context con = null;
 	/** SQL文 */
 	private StringBuffer sql = null;
-	/**
-	 * SQL実行フラグ<br />
-	 * ※0 > フラグセットなし
-	 * 　1 > ReadableDatabase
-	 * 　2 > WritableDatabase
-	 */
-	private int execFlg = 0;
 	/** データ取得用 */
 	protected Cursor cur = null;
 
 	/**
+	 * コンストラクタ
+	 *
+	 * @param con コンテキスト
+	 */
+	public DBAccessBase(Context con) {
+		this.con = con;
+	}
+
+	/**
 	 * SQL文の実行。
 	 *
-	 * @param con 実行クラス
+	 * @param execFlg SQL実行フラグ
 	 * @throws Exception 全ての例外
 	 */
-	public void execSql(Context con) throws Exception {
+	protected void execSql(int execFlg) throws Exception {
+		// コンテキストがnull之場合
+		if (con == null) {
+			throw new SQLiteException("コンテキストNULLエラー");
+
 		// SQLの記載が無い場合 または 実行フラグが不定の場合
-		if (sql == null || (execFlg != DBConstant.EXEC_FLG_READABLE && execFlg != DBConstant.EXEC_FLG_WRITABLE)) {
+		} else if (sql == null || (execFlg != DBConstant.EXEC_FLG_READABLE && execFlg != DBConstant.EXEC_FLG_WRITABLE)) {
 			throw new SQLiteException("SQL実行不可エラー");
 		}
 
@@ -72,60 +81,50 @@ public class DBAccessBase {
 	 * selectのSQL文を発行します。
 	 *
 	 * @param tableName テーブル名
-	 * @param tabelKeyValue レコード名と値の対応付けMAP
+	 * @param tableNameList 取得対象項目名リスト
 	 *
 	 * @throws Exception 全ての例外
 	 */
-	protected void createSelectSQL(String tableName, HashMap<String, String> tabelKeyValue) throws Exception {
+	protected void createSelectSQL(String tableName, ArrayList<String> tableNameList) throws Exception {
 		// StringBufferのインスタンス生成
 		sql = new StringBuffer();
-		// Key値取得
-		List<String> keyList = new ArrayList<String>(tabelKeyValue.keySet());
-		// レコード名
-		StringBuffer recName = new StringBuffer();
-		// レコード値
-		StringBuffer recValue = new StringBuffer();
 
-		// Key値の件数分ループ。
-		for (int i = 0; i < keyList.size(); i++) {
-			String keyItem = keyList.get(i);
+		// SQL文を作成
+		sql.append(SQLConstant.SELECT_SQL_1);
+
+		// 項目名の件数分ループ。
+		for (int i = 0; i < tableNameList.size(); i++) {
+			String keyItem = tableNameList.get(i);
 
 			// Listの最後の場合
-			if (i == keyList.size()) {
-				recName.append(keyItem);
-				recValue.append(tabelKeyValue.get(keyItem));
+			if (i == (tableNameList.size() - 1)) {
+				sql.append(keyItem);
 			// 上記以外
 			} else {
-				recName.append(keyItem + DBConstant.SQL_1);
-				recValue.append(tabelKeyValue.get(keyItem) + DBConstant.SQL_1);
+				sql.append(keyItem + SQLConstant.SQL_1);
 			}
 		}
 
-		// SQL文を作成
-		sql.append(DBConstant.SELECT_SQL_1);
-		sql.append(recName);
-		sql.append(DBConstant.SELECT_SQL_2);
+		sql.append(SQLConstant.SELECT_SQL_2);
 		sql.append(tableName);
 	}
 
 	/**
 	 * selectのSQL文を発行します。<br />
-	 * ※where句あり
+	 * ※その他条件あり
 	 *
 	 * @param tableName テーブル名
-	 * @param tabelKeyValue レコード名と値の対応付けMAP
-	 * @param whereSql where条件
+	 * @param tableNameList 取得対象項目名リスト
+	 * @param otherSQL その他の条件文(where,order by など)
 	 *
 	 * @throws Exception 全ての例外
 	 */
-	protected void createSelectWhereSQL(String tableName, HashMap<String, String> tabelKeyValue, String whereSql) throws Exception {
-		// where句以外のSQL文の作成
-		createSelectSQL(tableName, tabelKeyValue);
+	protected void createSelectOtherSQL(String tableName, ArrayList<String> tableNameList, String otherSQL) throws Exception {
+		// その他条件以外のSQL文の作成
+		createSelectSQL(tableName, tableNameList);
 
-		// where句の追加
-		sql.append(DBConstant.WHERE_SQL_1);
-		sql.append(whereSql);
-		sql.append(DBConstant.SQL_2);
+		// その他条件の追加
+		sql.append(otherSQL);
 	}
 
 	/**
@@ -157,19 +156,19 @@ public class DBAccessBase {
 				recValue.append(tabelKeyValue.get(keyItem));
 			// 上記以外
 			} else {
-				recName.append(keyItem + DBConstant.SQL_1);
-				recValue.append(tabelKeyValue.get(keyItem) + DBConstant.SQL_1);
+				recName.append(keyItem + SQLConstant.SQL_1);
+				recValue.append(tabelKeyValue.get(keyItem) + SQLConstant.SQL_1);
 			}
 		}
 
 		// SQL文を作成
-		sql.append(DBConstant.INSERT_SQL_1);
+		sql.append(SQLConstant.INSERT_SQL_1);
 		sql.append(tableName);
-		sql.append(DBConstant.INSERT_SQL_2);
+		sql.append(SQLConstant.INSERT_SQL_2);
 		sql.append(recName);
-		sql.append(DBConstant.INSERT_SQL_3);
+		sql.append(SQLConstant.INSERT_SQL_3);
 		sql.append(recValue);
-		sql.append(DBConstant.SQL_2);
+		sql.append(SQLConstant.SQL_2);
 	}
 
 	/**
@@ -185,9 +184,9 @@ public class DBAccessBase {
 		sql = new StringBuffer();
 
 		// SQL文を作成
-		sql.append(DBConstant.UPDATE_SQL_1);
+		sql.append(SQLConstant.UPDATE_SQL_1);
 		sql.append(tableName);
-		sql.append(DBConstant.UPDATE_SQL_2);
+		sql.append(SQLConstant.UPDATE_SQL_2);
 
 		// Listの件数分ループ。
 		for (int i = 0; i < updateList.size(); i++) {
@@ -199,31 +198,29 @@ public class DBAccessBase {
 
 			// 上記以外
 			} else {
-				sql.append(keyItem + DBConstant.SQL_1);
+				sql.append(keyItem + SQLConstant.SQL_1);
 			}
 		}
 
-		sql.append(DBConstant.SQL_2);
+		sql.append(SQLConstant.SQL_2);
 	}
 
 	/**
 	 * updateのSQL文を発行します。<br />
-	 * ※where句あり
+	 * ※その他条件あり
 	 *
 	 * @param tableName テーブル名
 	 * @param updateList updateの情報のリスト
-	 * @param whereSql where条件
+	 * @param otherSQL その他の条件文(where,order by など)
 	 *
 	 * @throws Exception 全ての例外
 	 */
-	protected void createUpdateWhereSQL(String tableName, ArrayList<String> updateList, String whereSql) throws Exception {
-		// where句以外のSQL文の作成
+	protected void createUpdateOtherSQL(String tableName, ArrayList<String> updateList, String otherSQL) throws Exception {
+		// その他条件以外のSQL文の作成
 		createUpdateSQL(tableName, updateList);
 
-		// where句の追加
-		sql.append(DBConstant.WHERE_SQL_1);
-		sql.append(whereSql);
-		sql.append(DBConstant.SQL_2);
+		// その他条件の追加
+		sql.append(otherSQL);
 	}
 
 	/**
@@ -237,27 +234,25 @@ public class DBAccessBase {
 		// StringBufferのインスタンス生成
 		sql = new StringBuffer();
 
-		sql.append(DBConstant.DELETE_SQL_1);
+		sql.append(SQLConstant.DELETE_SQL_1);
 		sql.append(tableName);
 	}
 
 	/**
 	 * deleteのSQL文を発行します。
-	 * ※where句あり
+	 * ※その他条件あり
 	 *
 	 * @param tableName テーブル名
-	 * @param whereSql where条件
+	 * @param otherSQL その他の条件文(where,order by など)
 	 *
 	 * @throws Exception 全ての例外
 	 */
-	protected void createDeleteWhereSQL(String tableName, String whereSql) throws Exception {
-		// where句以外のSQL文の作成
+	protected void createDeleteOtherSQL(String tableName, String otherSQL) throws Exception {
+		// その他条件以外のSQL文の作成
 		createDeleteSQL(tableName);
 
-		// where句の追加
-		sql.append(DBConstant.WHERE_SQL_1);
-		sql.append(whereSql);
-		sql.append(DBConstant.SQL_2);
+		// その他条件の追加
+		sql.append(otherSQL);
 	}
 
 	/**
@@ -271,7 +266,7 @@ public class DBAccessBase {
 
 	/**
 	 * SQL文の設定。<br />
-	 * ※サブクエリ等がある場合に利用。
+	 * ※特殊な構文の場合に利用。
 	 *
 	 * @param sql SQL文
 	 * @throws Exception 全ての例外
@@ -281,24 +276,5 @@ public class DBAccessBase {
 		this.sql = new StringBuffer();
 		this.sql.append(sql);
 	}
-
-	/**
-	 * カーソルを取得する。
-	 *
-	 * @return カーソル
-	 */
-	public Cursor getCur() {
-		return cur;
-	}
-
-	/**
-	 * カーソルを設定する。
-	 *
-	 * @param cur カーソル
-	 */
-	public void setCur(Cursor cur) {
-		this.cur = cur;
-	}
-
 
 }

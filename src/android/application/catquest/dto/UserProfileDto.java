@@ -6,9 +6,6 @@ package android.application.catquest.dto;
  * @author n.yuuki
  */
 public class UserProfileDto {
-	// 定数
-
-	// 変数
 	/** UUID */
 	private String uuid = null;
 	/** プレイヤー名 */

@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * DBアクセスヘルパークラス。
- * ※2013-05-20 > 永田 > 作成中
  *
  * @author n.yuuki
  */
