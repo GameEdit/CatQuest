@@ -27,7 +27,7 @@ public class LoginActivity extends Activity {
 		button.setOnClickListener(new ButtonClickListener());
 
 	}
-	
+
 	class ButtonClickListener implements OnClickListener{
 		public void onClick(View v){
 			EditText input =(EditText)findViewById(R.id.editText1);
