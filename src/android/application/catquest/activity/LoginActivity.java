@@ -2,6 +2,7 @@ package android.application.catquest.activity;
 
 import android.app.Activity;
 import android.application.catquest.R;
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
@@ -32,7 +33,13 @@ public class LoginActivity extends Activity {
 		public void onClick(View v){
 			EditText input =(EditText)findViewById(R.id.editText1);
 			input.setText("メイジももんじゃ");
-			
+
+			ContentValues val = new ContentValues();
+			val.put("productid",productid.getText().toString);
+			val.put("name",name.getText().toString);
+			val.put("price", price.getText().toString());
+
+			db.insert("product",null,val);
 		}
 	}
 
