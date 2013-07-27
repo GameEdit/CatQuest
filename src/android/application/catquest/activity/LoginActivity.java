@@ -2,6 +2,7 @@ package android.application.catquest.activity;
 
 import android.app.Activity;
 import android.application.catquest.R;
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
@@ -33,6 +34,7 @@ public class LoginActivity extends Activity {
 			EditText input =(EditText)findViewById(R.id.editText1);
 			input.setText("メイジももんじゃ");
 
+
 			String sql
 			= "create table product(" +
 			"_id integer primary key autoincrement," +
@@ -41,6 +43,14 @@ public class LoginActivity extends Activity {
 			"price integer default 0)";
 			//SQL実行
 			db.execSQL(sql);
+
+			ContentValues val = new ContentValues();
+			val.put("productid",productid.getText().toString);
+			val.put("name",name.getText().toString);
+			val.put("price", price.getText().toString());
+
+			db.insert("product",null,val);
+
 		}
 	}
 
