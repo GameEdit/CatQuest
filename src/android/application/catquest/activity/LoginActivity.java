@@ -52,7 +52,7 @@ public class LoginActivity extends Activity {
 
 			db.insert("product",null,val);
 
-			String selectsql = "select * from " + "product" + ";";
+			String selectsql = "select name from " + "product" + "where id = 1 ;";
 			String testText = db.query(selectsql, null);
 			input.setText(testText);
 
