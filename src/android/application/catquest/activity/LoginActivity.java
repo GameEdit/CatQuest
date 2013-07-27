@@ -27,12 +27,20 @@ public class LoginActivity extends Activity {
 		button.setOnClickListener(new ButtonClickListener());
 
 	}
-	
+
 	class ButtonClickListener implements OnClickListener{
 		public void onClick(View v){
 			EditText input =(EditText)findViewById(R.id.editText1);
 			input.setText("メイジももんじゃ");
-			
+
+			String sql
+			= "create table product(" +
+			"_id integer primary key autoincrement," +
+			"productid text not null,"
+			"name text not null," +
+			"price integer default 0)";
+			//SQL実行
+			db.execSQL(sql);
 		}
 	}
 
