@@ -2,6 +2,7 @@ package android.application.catquest.activity;
 
 import android.app.Activity;
 import android.application.catquest.R;
+import android.application.catquest.dao.DBAccessOpenHelper;
 import android.content.ContentValues;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +11,7 @@ import android.widget.Toast;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-
+import android.database.sqlite.SQLiteDatabase;
 
 /**
  * ログイン画面
@@ -34,20 +35,22 @@ public class LoginActivity extends Activity {
 			EditText input =(EditText)findViewById(R.id.editText1);
 			input.setText("メイジももんじゃ");
 
+			DBAccessOpenHelper helper = new DBAccessOpenHelper(LoginActivity.this);
+			SQLiteDatabase db = helper.getWritableDatabase();
 
 			String sql
 			= "create table product(" +
 			"_id integer primary key autoincrement," +
-			"productid text not null,"
+			"productid text not null," +
 			"name text not null," +
 			"price integer default 0)";
 			//SQL実行
 			db.execSQL(sql);
 
 			ContentValues val = new ContentValues();
-			val.put("productid",productid.getText().toString);
-			val.put("name",name.getText().toString);
-			val.put("price", price.getText().toString());
+			val.put("productid","id");
+			val.put("name","namae");
+			val.put("price", "kakaku");
 
 			db.insert("product",null,val);
 
