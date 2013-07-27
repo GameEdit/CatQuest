@@ -33,8 +33,6 @@ public class LoginActivity extends Activity {
 	class ButtonClickListener implements OnClickListener{
 		public void onClick(View v){
 			EditText input =(EditText)findViewById(R.id.editText1);
-			input.setText("メイジももんじゃ");
-
 			DBAccessOpenHelper helper = new DBAccessOpenHelper(LoginActivity.this);
 			SQLiteDatabase db = helper.getWritableDatabase();
 
@@ -48,11 +46,15 @@ public class LoginActivity extends Activity {
 			db.execSQL(sql);
 
 			ContentValues val = new ContentValues();
-			val.put("productid","id");
+			val.put("productid","1");
 			val.put("name","namae");
 			val.put("price", "kakaku");
 
 			db.insert("product",null,val);
+
+			String selectsql = "select * from " + "product" + ";";
+			String testText = db.query(selectsql, null);
+			input.setText(testText);
 
 		}
 	}
