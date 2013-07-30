@@ -27,7 +27,7 @@ import android.util.Log;
  */
 public class LoginActivity extends Activity {
 
-	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,8 @@ public class LoginActivity extends Activity {
 
 	}
 
-	
-	
+
+
 	class ButtonClickListener implements OnClickListener{
 		public void onClick(View v){
 			Log.d("tag_name", "debuglog text");
@@ -63,8 +63,9 @@ public class LoginActivity extends Activity {
 			val.put("name","namae");
 			val.put("price", "kakaku");
 
-			
+
 			//db.insert("product",null,val);
+
 
 			//String selectsql = "select name from " + "product " + "where id = 1 ;";
 			//Cursor cursor = db.query("product", null,null,null,null,null,null);
@@ -89,6 +90,7 @@ public class LoginActivity extends Activity {
 			db.close();
 			//input.setText("あ");
 }
+
 	}
 
 	@Override
