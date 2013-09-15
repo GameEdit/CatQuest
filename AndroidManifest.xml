@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="MypageActivity"></activity>
+        <activity android:name="android.application.catquest.activity.MypageActivity"></activity>
     </application>
 
 </manifest>

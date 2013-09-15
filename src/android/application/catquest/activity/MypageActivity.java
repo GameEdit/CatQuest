@@ -26,13 +26,13 @@ public class MypageActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mypage_activity_layout);
 		//ボタンオブオブジェクト取得
-		Button button =(Button)findViewById(R.id.button2);
-		button.setOnClickListener(new ButtonClickListener());
+		//Button button =(Button)findViewById(R.id.button3);
+		//button.setOnClickListener(new ButtonClickListener());
 		  Intent intent = getIntent();
 	        Bundle extras = intent.getExtras();
 
 	}
-
+/*
 	class ButtonClickListener implements OnClickListener{
 		public void onClick(View v){
 			/*EditText input =(EditText)findViewById(R.id.editText1);
@@ -58,7 +58,7 @@ public class MypageActivity extends Activity {
 			String selectsql = "select name from " + "product" + "where id = 1 ;";
 			String testText = db.query(selectsql, null);
 			input.setText(testText);
-			*/
+			
 
 		}
 	}
@@ -69,5 +69,5 @@ public class MypageActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+	*/
 }

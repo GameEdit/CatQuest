@@ -57,7 +57,9 @@ public class LoginActivity extends Activity {
 			String testText = db.query(selectsql, null);
 			input.setText(testText);
 			*/
+			
 			Intent intent = new Intent(LoginActivity.this, MypageActivity.class);
+			intent.putExtra("ASIN", "tag");
 			startActivity(intent);
 		}
 	}
