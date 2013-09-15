@@ -12,27 +12,30 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 
 /**
  * ログイン画面
  *
  * @author n.yuuki
  */
-public class LoginActivity extends Activity {
+public class MypageActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login_activity_layout);
+		setContentView(R.layout.mypage_activity_layout);
 		//ボタンオブオブジェクト取得
 		Button button =(Button)findViewById(R.id.button2);
 		button.setOnClickListener(new ButtonClickListener());
+		  Intent intent = getIntent();
+	        Bundle extras = intent.getExtras();
 
 	}
 
 	class ButtonClickListener implements OnClickListener{
 		public void onClick(View v){
-			EditText input =(EditText)findViewById(R.id.editText1);
+			/*EditText input =(EditText)findViewById(R.id.editText1);
 			DBAccessOpenHelper helper = new DBAccessOpenHelper(LoginActivity.this);
 			SQLiteDatabase db = helper.getWritableDatabase();
 
@@ -55,6 +58,7 @@ public class LoginActivity extends Activity {
 			String selectsql = "select name from " + "product" + "where id = 1 ;";
 			String testText = db.query(selectsql, null);
 			input.setText(testText);
+			*/
 
 		}
 	}
