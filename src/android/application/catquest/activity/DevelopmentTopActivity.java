@@ -21,7 +21,7 @@ public class DevelopmentTopActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.developmenttop_activity_layout);
 		//ボタンオブオブジェクト取得
-		Button button =(Button)findViewById(R.id.button2);
+		Button button =(Button)findViewById(R.id.button1);
 		button.setOnClickListener(new ButtonClickListener());
 
 		  Intent intent = getIntent();

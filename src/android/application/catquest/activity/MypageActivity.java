@@ -35,7 +35,7 @@ public class MypageActivity extends Activity {
 
 	class ButtonClickListener implements OnClickListener{
 		public void onClick(View v){
-			Intent intent = new Intent(MypageActivity.this, LoginActivity.class);
+			Intent intent = new Intent(MypageActivity.this, BattleTopActivity.class);
 			intent.putExtra("ASIN", "tag");
 			startActivity(intent);
 
