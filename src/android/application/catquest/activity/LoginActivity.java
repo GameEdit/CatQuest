@@ -27,6 +27,8 @@ public class LoginActivity extends Activity {
 		//ボタンオブオブジェクト取得
 		Button button =(Button)findViewById(R.id.button2);
 		button.setOnClickListener(new ButtonClickListener());
+		 Intent intent = getIntent();
+	        Bundle extras = intent.getExtras();
 
 	}
 

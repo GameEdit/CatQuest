@@ -19,11 +19,13 @@ public class ItemTopActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login_activity_layout);
+		setContentView(R.layout.itemtop_activity_layout);
 		//ボタンオブオブジェクト取得
 		Button button =(Button)findViewById(R.id.button2);
 		button.setOnClickListener(new ButtonClickListener());
 
+		  Intent intent = getIntent();
+	        Bundle extras = intent.getExtras();
 	}
 	class ButtonClickListener implements OnClickListener{
 		public void onClick(View v){

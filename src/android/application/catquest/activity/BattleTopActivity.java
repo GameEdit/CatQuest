@@ -19,11 +19,12 @@ public class BattleTopActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login_activity_layout);
+		setContentView(R.layout.battletop_activity_layout);
 		//ボタンオブオブジェクト取得
 		Button button =(Button)findViewById(R.id.button2);
 		button.setOnClickListener(new ButtonClickListener());
-
+		  Intent intent = getIntent();
+	        Bundle extras = intent.getExtras();
 	}
 
 	class ButtonClickListener implements OnClickListener{
@@ -35,6 +36,7 @@ public class BattleTopActivity extends Activity{
 		}
 	}
 
+	/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -42,4 +44,5 @@ public class BattleTopActivity extends Activity{
 		return true;
 	}
 
+*/
 }
