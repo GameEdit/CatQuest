@@ -29,7 +29,7 @@ public class ItemTopActivity extends Activity {
 		public void onClick(View v){
 
 
-			Intent intent = new Intent(LoginActivity.this, MypageActivity.class);
+			Intent intent = new Intent(ItemTopActivity.this, MinigameTopActivity.class);
 			intent.putExtra("ASIN", "tag");
 			startActivity(intent);
 		}

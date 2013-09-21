@@ -29,7 +29,7 @@ public class ShopTopActivity extends Activity{
 	class ButtonClickListener implements OnClickListener{
 		public void onClick(View v){
 
-			Intent intent = new Intent(LoginActivity.this, MypageActivity.class);
+			Intent intent = new Intent(ShopTopActivity.this, MypageActivity.class);
 			intent.putExtra("ASIN", "tag");
 			startActivity(intent);
 		}

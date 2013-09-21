@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Intent;
 
-public class EquipTopActivity {
+public class EquipTopActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,7 +29,7 @@ public class EquipTopActivity {
 	class ButtonClickListener implements OnClickListener{
 		public void onClick(View v){
 
-			Intent intent = new Intent(LoginActivity.this, MypageActivity.class);
+			Intent intent = new Intent(EquipTopActivity.this, GachaTopActivity.class);
 			intent.putExtra("ASIN", "tag");
 			startActivity(intent);
 		}
