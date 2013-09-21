@@ -23,6 +23,14 @@
             </intent-filter>
         </activity>
         <activity android:name="android.application.catquest.activity.MypageActivity"></activity>
+        <activity android:name="android.application.catquest.activity.BattleTopActivity"></activity>
+        <activity android:name="android.application.catquest.activity.DevelopmentTopActivity"></activity>
+        <activity android:name="android.application.catquest.activity.EquipTopActivity"></activity>
+        <activity android:name="android.application.catquest.activity.GachaTopActivity"></activity>
+        <activity android:name="android.application.catquest.activity.ItemTopActivity"></activity>
+        <activity android:name="android.application.catquest.activity.MinigameTopActivity"></activity>
+        <activity android:name="android.application.catquest.activity.QuestTopActivity"></activity>
+        <activity android:name="android.application.catquest.activity.ShopTopActivity"></activity>
     </application>
 
 </manifest>
